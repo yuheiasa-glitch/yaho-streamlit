@@ -31,20 +31,19 @@ st.markdown("""
 st.markdown("""
 <div style="margin-bottom:24px;">
   <div style="font-size:36px; font-weight:700; letter-spacing:0.5px;">
-    Temporal Decay & Indifference
+    Temporal <span style="color:#FF8C00;">Decay</span> &amp; Indifference
   </div>
   <div style="font-size:18px; font-weight:400; margin-top:2px;">
     the source of profit
   </div>
   <div style="font-size:13px; color:#999; margin-top:6px;">
-    by 225NOW
+    by <span style="color:#FF8C00; font-weight:600;">225NOW</span>
   </div>
   <div style="font-size:12px; color:#aaa; margin-top:10px;">
     時間的消耗と無関心が、利益の源泉である
   </div>
 </div>
-"""
-, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 import streamlit.components.v1 as components
 
@@ -63,6 +62,31 @@ components.html(
     """,
     height=170
 )
+
+import streamlit.components.v1 as components
+
+components.html("""
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {
+    "symbols": [
+      {"proName": "FOREXCOM:JP225", "title": "JP225 CFD"},
+      {"proName": "FX:USDJPY", "title": "USDJPY"},
+      {"proName": "OANDA:SPX500USD", "title": "SPX"},
+      {"proName": "OANDA:XAUUSD", "title": "Gold"},
+      {"proName": "BINANCE:BTCUSDT", "title": "Bitcoin"}
+    ],
+    "showSymbolLogo": true,
+    "colorTheme": "dark",
+    "isTransparent": true,
+    "displayMode": "adaptive",
+    "locale": "en"
+  }
+  </script>
+</div>
+""", height=70)
+
 
 
 # ===== CSV読み込み =====
@@ -174,7 +198,7 @@ st.markdown("<div style='height:22px'></div>", unsafe_allow_html=True)
 st.markdown("### Assets", unsafe_allow_html=True)
 
 ASSETS = {
-    "Nikkei 225": "INDEX:NKY",
+    "JP225": "FOREXCOM:JP225",
     "SPX": "OANDA:SPX500USD",
     "Gold": "OANDA:XAUUSD",
     "USDJPY": "FX:USDJPY",
@@ -269,3 +293,4 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
