@@ -238,3 +238,34 @@ components.html(
 """,
 height=440,
 )
+
+st.markdown(
+    """
+    <div style="
+        color: #FF8C00;
+        font-size: 11px;
+        line-height: 1.55;
+        opacity: 0.85;
+        margin-top: 36px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255,140,0,0.25);
+    ">
+      <strong>Disclaimer:</strong><br>
+      This site is provided for informational and educational purposes only and does not constitute investment advice, financial advice, or a recommendation to buy or sell any financial instruments.<br>
+      All data and analysis are based on publicly available information and personal models. Past performance is not indicative of future results.<br>
+      Use of this site is at your own risk.
+      <br><br>
+      <strong>Sharing / Redistribution:</strong><br>
+      Do not reproduce, redistribute, republish, or share this content (including screenshots, data, charts, and text) without explicit permission from 225NOW.
+      <br><br>
+      <strong>【免責事項】</strong><br>
+      本サイトは情報提供および教育目的のみを意図したものであり、投資助言、金融助言、または特定の金融商品や取引の売買を推奨するものではありません。<br>
+      掲載されているデータおよび分析は、公開情報および個人的なモデルに基づいています。過去の実績は将来の成果を保証するものではありません。<br>
+      本サイトの利用は、すべてご自身の判断と責任において行ってください。
+      <br><br>
+      <strong>【転載・無断拡散について】</strong><br>
+      本コンテンツ（スクリーンショット、データ、チャート、文章を含む）の転載は禁止転載・再配布・再公開・共有は禁止します。共有が必要な場合は、事前に225NOWの許可を取得してください。
+    </div>
+    """,
+    unsafe_allow_html=True
+)
