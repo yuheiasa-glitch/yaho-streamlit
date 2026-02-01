@@ -363,6 +363,61 @@ components.html(
 height=440,
 )
 
+
+st.markdown(
+    """
+    <div style="
+        color: #FF3B3B;
+        font-size: 13px;
+        line-height: 1.75;
+        margin-top: 48px;
+        margin-bottom: 36px;
+        padding: 22px 24px;
+        border-left: 3px solid #FF3B3B;
+        background: rgba(255,59,59,0.035);
+    ">
+     
+    
+    Money is not merely a medium of exchange, nor an object to be accumulated.<br>
+    It is a medium that converts courage and risk-taking into real action.<br><br>
+
+    That is why the concept of money never disappears in any era.<br>
+    As long as uncertainty exists, there will always be those who accept it and those who avoid it.<br><br>
+
+    <strong>Finance is a mechanism that concentrates money toward those with courage.</strong><br>
+    This is not exploitation, but selection — a structure that allocates resources to those willing to bear uncertainty.<br><br>
+
+    As a system that optimizes money toward courage, financial markets have driven human progress.<br>
+    They are not merely arenas for monetary gambling.<br><br>
+
+    <strong>This model is a tool to observe that world.</strong><br>
+    Not to declare justice, nor to predict the future,<br>
+    but to observe — structurally and calmly — the moments where fear, desire, time, and capital intersect.<br><br>
+
+    
+    マネーは、単なる交換手段でも、蓄積の対象でもない。<br>
+    <strong>勇気とリスクテイクを、現実の行動へと変換するための媒介</strong>である。<br><br>
+
+    だから、どんな時代においてもマネーの概念は消えない。<br>
+    不確実性が存在する限り、それを引き受ける者と、回避する者は必ず分かれる。<br><br>
+
+    <strong>金融とは、勇気ある者にマネーを集めるための収奪機能である。</strong><br>
+    それは搾取ではない。不確実性を引き受ける覚悟を持つ者へ、<br>
+    社会の資源を集中させるための構造である。<br><br>
+
+    勇気ある者にマネーを最適化する装置としての金融市場は、<br>
+    人類の発展そのものを駆動してきた。金融市場は、単なるマネーの賭博場ではない。<br><br>
+
+    <strong>このモデルは、その世界を観測するためのツールである。</strong><br>
+    正義を語るためでも、未来を断定するためでもない。<br>
+    恐怖・欲望・時間・資本が交錯する瞬間を、構造として捉えるための観測装置である。
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+
+
 st.markdown(
     """
     <div style="
