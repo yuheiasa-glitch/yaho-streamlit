@@ -47,6 +47,96 @@ st.markdown("""
 
 import streamlit.components.v1 as components
 
+def add_crash_events(fig, df, x_col: str, y_col: str, events_csv_path: str = "events.csv"):
+    import numpy as np
+
+    SHORT_LABEL = {
+        "Lehman Collapse Shock": "LEH",
+        "Bernanke Taper Shock": "TAPER",
+        "Ebola Panic Shock": "EBOLA",
+        "VIX Shock": "VIX",
+        "COVID Outbreak Shock": "COVID",
+        "Ukraine Invasion Shock": "UKR",
+        "BOJ Rate Hike Shock": "BOJ",
+        "Trump Tariff Shock": "TARIFF",
+    }
+    EVENT_RED = "#FF3B3B"
+
+    # --- events 読み込み ---
+    events = pd.read_csv(events_csv_path)
+    events.columns = [c.strip() for c in events.columns]
+
+    required = {"date", "shock", "opt_max_ret_pct"}
+    if not required.issubset(set(events.columns)):
+        st.error(f"{events_csv_path} must have columns: {sorted(required)} / now: {events.columns.tolist()}")
+        st.stop()
+
+    # 型整形
+    events["date"] = pd.to_datetime(events["date"], errors="coerce")
+    events["opt_max_ret_pct"] = pd.to_numeric(events["opt_max_ret_pct"], errors="coerce")
+
+    # df 側も datetime に
+    df[x_col] = pd.to_datetime(df[x_col], errors="coerce")
+
+    # 欠損除外 & ソート（searchsortedの前提）
+    df_sorted = df.dropna(subset=[x_col, y_col]).sort_values(x_col).reset_index(drop=True)
+    events = events.dropna(subset=["date"]).sort_values("date").reset_index(drop=True)
+
+    if len(df_sorted) == 0 or len(events) == 0:
+        return fig
+
+    x_series = df_sorted[x_col]
+    y_series = df_sorted[y_col]
+
+    # --- イベント点のy座標：その日 / なければ直近過去 ---
+    event_y = []
+    for d in events["date"]:
+        idx = x_series.searchsorted(d, side="right") - 1
+        idx = max(0, min(idx, len(x_series) - 1))
+        event_y.append(float(y_series.iloc[idx]))
+    events["y"] = event_y
+
+    # --- 縦線＋上ラベル ---
+    for _, ev in events.iterrows():
+        fig.add_vline(
+            x=ev["date"],
+            line_width=1,
+            line_dash="dot",
+            opacity=0.85,
+            line_color=EVENT_RED
+        )
+        fig.add_annotation(
+            x=ev["date"], y=1, xref="x", yref="paper",
+            text=SHORT_LABEL.get(str(ev["shock"]), str(ev["shock"])),
+            showarrow=False,
+            yanchor="top",
+            xanchor="left",
+            font=dict(color=EVENT_RED, size=12)
+        )
+
+    # --- hover用：数値があるやつだけ ---
+    hover_events = events.dropna(subset=["opt_max_ret_pct"]).copy()
+    if len(hover_events) == 0:
+        return fig
+
+    fig.add_trace(go.Scatter(
+        x=hover_events["date"],
+        y=hover_events["y"],
+        mode="markers",
+        marker=dict(size=10, opacity=0.0, color=EVENT_RED),
+        customdata=hover_events[["shock", "opt_max_ret_pct"]].to_numpy(),
+        hovertemplate=(
+            "<b>%{customdata[0]}</b><br>"
+            "Max Option Return: %{customdata[1]:.0f}x<br>"
+            "<extra></extra>"
+        ),
+        showlegend=False
+    ))
+
+    return fig
+
+
+
 # ===== Spotify Podcast Embed =====
 components.html(
     """
@@ -132,10 +222,20 @@ for c in y_cols:
     fig.add_trace(go.Scatter(
         x=df[date_col],
         y=df[c],
-        mode="lines",
+        mode="lines",          # ← 半角
         name=c,
         line=dict(color=colors[c], width=widths[c])
     ))
+
+# ===== Crash Events Overlay =====
+fig = add_crash_events(
+    fig,
+    df,
+    x_col=date_col,
+    y_col="①",               # ← 半角
+    events_csv_path="events.csv"
+)
+
 
 fig.update_layout(
     height=520,
