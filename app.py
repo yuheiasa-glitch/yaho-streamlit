@@ -59,6 +59,8 @@ def add_crash_events(fig, df, x_col: str, y_col: str, events_csv_path: str = "ev
         "Ukraine Invasion Shock": "UKR",
         "BOJ Rate Hike Shock": "BOJ",
         "Trump Tariff Shock": "TARIFF",
+        "Brexit Shock": "BREX",
+
     }
     EVENT_RED = "#FF3B3B"
 
