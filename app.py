@@ -220,14 +220,26 @@ widths = {
 
 # ===== Plotly =====
 fig = go.Figure()
+
 for c in y_cols:
-    fig.add_trace(go.Scatter(
-        x=df[date_col],
-        y=df[c],
-        mode="lines",          # ← 半角
-        name=c,
-        line=dict(color=colors[c], width=widths[c])
-    ))
+    if c == "③":
+        fig.add_trace(go.Scatter(
+            x=df[date_col],
+            y=df[c],
+            mode="lines",
+            name=c,
+            line=dict(color=colors[c], width=widths[c]),
+            fill="tozeroy",
+            fillcolor="rgba(170,120,255,0.12)",  # ← 薄い紫
+        ))
+    else:
+        fig.add_trace(go.Scatter(
+            x=df[date_col],
+            y=df[c],
+            mode="lines",
+            name=c,
+            line=dict(color=colors[c], width=widths[c])
+        ))
 
 # ===== Crash Events Overlay =====
 fig = add_crash_events(
