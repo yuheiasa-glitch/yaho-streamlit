@@ -253,20 +253,28 @@ fig = add_crash_events(
 
 fig.update_layout(
     height=520,
-    paper_bgcolor="#000000",
-    plot_bgcolor="#000000",
-    font=dict(color="#e5e5e5"),
+
+    # ===== Bloomberg-like background =====
+    paper_bgcolor="#1c1c1c",   # チャート外側
+    plot_bgcolor="#111111",    # プロット面
+
+    font=dict(
+        color="#cfcfcf",
+        size=12
+    ),
+
     margin=dict(l=40, r=60, t=10, b=40),
 
+    # ===== X Axis =====
     xaxis=dict(
-        gridcolor="#222",
-        zerolinecolor="#222",
-        tickfont=dict(color="#aaa"),
+        showgrid=False,
+        showline=True,
+        linecolor="#444444",
+        tickfont=dict(color="#a8a8a8"),
 
-        # ★レンジボタンを見やすく（白系 + 暗文字）
         rangeselector=dict(
-            bgcolor="rgba(255,255,255,0.92)",  # ボタン台を白寄りに
-            activecolor="#7CFF4E",             # 選択中を蛍光グリーン
+            bgcolor="rgba(255,255,255,0.92)",
+            activecolor="#7CFF4E",
             bordercolor="rgba(255,255,255,0.55)",
             borderwidth=1,
             font=dict(color="#0A0A0A", size=12),
@@ -280,21 +288,26 @@ fig.update_layout(
 
         rangeslider=dict(
             visible=True,
-            bgcolor="#000000",
+            bgcolor="#111111",
             bordercolor="#333333"
         ),
 
         type="date"
     ),
 
-yaxis=dict(
-    gridcolor="#222",
-    zeroline=True,
-    zerolinecolor="#FFFFFF",   # 白（基準線）
-    zerolinewidth=1.0,         # ← 少しだけ太く
-    tickfont=dict(color="#aaa")
-),
+    # ===== Y Axis =====
+    yaxis=dict(
+        showgrid=True,
+        gridcolor="#2a2a2a",
+        zeroline=True,
+        zerolinecolor="#666666",
+        zerolinewidth=1.0,
+        showline=True,
+        linecolor="#444444",
+        tickfont=dict(color="#a8a8a8"),
+    ),
 
+    # ===== Legend =====
     legend=dict(
         bgcolor="rgba(0,0,0,0)",
         font=dict(color="#aaaaaa"),
