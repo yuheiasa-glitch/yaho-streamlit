@@ -321,6 +321,7 @@ components.html("""
 # ===== CSV読み込み =====
 df_jp, date_col_jp = load_timeseries_csv("jp_data.csv")
 df_us, date_col_us = load_timeseries_csv("us_data.csv")
+df_hsdx, date_col_hsdx = load_timeseries_csv("hsdx_data.csv")
 
 # ===== JP列チェック =====
 jp_cols = ["①", "②", "③"]
@@ -334,6 +335,13 @@ us_cols = ["④", "⑤"]
 missing_us = [c for c in us_cols if c not in df_us.columns]
 if missing_us:
     st.error(f"us_data.csv に ④⑤ が足りない: {missing_us} / 列名: {df_us.columns.tolist()}")
+    st.stop()
+
+# ===== HSDX列チェック =====
+hsdx_cols = ["⑥", "⑦"]
+missing_hsdx = [c for c in hsdx_cols if c not in df_hsdx.columns]
+if missing_hsdx:
+    st.error(f"hsdx_data.csv に ⑥⑦ が足りない: {missing_hsdx} / 列名: {df_hsdx.columns.tolist()}")
     st.stop()
 
 # ===== 色 =====
@@ -355,6 +363,15 @@ us_colors = {
 us_widths = {
     "④": 1.0,
     "⑤": 1.0,
+}
+
+hsdx_colors = {
+    "⑥": "#7CFF4E",
+    "⑦": "#FF3B3B",
+}
+hsdx_widths = {
+    "⑥": 1.2,
+    "⑦": 1.0,
 }
 
 # ===== JP Chart =====
@@ -411,6 +428,27 @@ fig_us = add_crash_events(
 )
 
 st.plotly_chart(fig_us, use_container_width=True)
+
+# ===== HSDX Chart =====
+st.markdown("<div style='height:18px'></div>", unsafe_allow_html=True)
+
+fig_hsdx = build_chart(
+    df=df_hsdx,
+    date_col=date_col_hsdx,
+    y_cols=hsdx_cols,
+    colors=hsdx_colors,
+    widths=hsdx_widths,
+    title_text="HSDX",
+    title_color="#7CFF4E",
+    height=CHART_HEIGHT,
+    fill_col="⑥",
+    fill_color="rgba(124,255,78,0.16)",
+    show_range_selector=True,
+    show_range_slider=True,
+    clip_y_quantile=None,
+)
+
+st.plotly_chart(fig_hsdx, use_container_width=True)
 
 
 # ===== Assets (TradingView) =====
