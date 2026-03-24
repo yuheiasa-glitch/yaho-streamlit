@@ -366,7 +366,7 @@ us_widths = {
 }
 
 hsdx_colors = {
-    "⑥": "#7CFF4E",
+    "⑥": "#4CAF50",
     "⑦": "#FF3B3B",
 }
 hsdx_widths = {
@@ -439,10 +439,10 @@ fig_hsdx = build_chart(
     colors=hsdx_colors,
     widths=hsdx_widths,
     title_text="HSDX",
-    title_color="#7CFF4E",
+    title_color="#FF3B3B",
     height=CHART_HEIGHT,
     fill_col="⑥",
-    fill_color="rgba(124,255,78,0.16)",
+    fill_color="rgba(76,175,80,0.12)",
     show_range_selector=True,
     show_range_slider=True,
     clip_y_quantile=None,
