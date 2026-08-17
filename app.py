@@ -74,7 +74,7 @@ def add_crash_events(fig, df, x_col: str, y_col: str, events_csv_path: str = "ev
     SHORT_LABEL = {
         "Lehman Collapse Shock": "LEH",
         "Bernanke Taper Shock": "TAPER",
-        "Ebola Panic Shock": "EBOLA",
+        "China Shock": "CHINA",
         "VIX Shock": "VIX",
         "COVID Outbreak Shock": "COVID",
         "Ukraine Invasion Shock": "UKR",
