@@ -72,6 +72,9 @@ def load_timeseries_csv(csv_path: str):
 
 def add_crash_events(fig, df, x_col: str, y_col: str, events_csv_path: str = "events.csv"):
     SHORT_LABEL = {
+        "Murakami Shock": "MUR",
+        "Subprime Shock": "SUB",
+        "Great East Japan Earthquake": "3.11",
         "Lehman Collapse Shock": "LEH",
         "Bernanke Taper Shock": "TAPER",
         "China Shock": "CHINA",
