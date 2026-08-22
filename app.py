@@ -94,6 +94,9 @@ def add_crash_events(fig, df, x_col: str, y_col: str, events_csv_path: str = "ev
         "Eurozone Crisis": "EURO",
         "Ebola Shock": "EBOLA",
         "North Korea Crisis Shock": "NK",
+        "US Credit Downgrade Shock": "US-DG",
+        "Emerging Market Shock": "EM",
+        "Global Selloff Shock": "SELL",
 
     }
     EVENT_RED = "#FF3B3B"
