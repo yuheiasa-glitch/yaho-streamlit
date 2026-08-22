@@ -82,7 +82,7 @@ def add_crash_events(fig, df, x_col: str, y_col: str, events_csv_path: str = "ev
         "VIX Shock": "VIX",
         "US-China Trade War Shock": "TRADE",
         "COVID Outbreak Shock": "COVID",
-        "Archegos Shock": "ARCH",
+        "Inflation Shock": "INFL",
         "Ukraine Invasion Shock": "UKR",
         "Silicon Valley Bank Shock": "SVB",
         "Israel-Iran Shock": "ISR-IRN",
