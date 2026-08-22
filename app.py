@@ -78,12 +78,19 @@ def add_crash_events(fig, df, x_col: str, y_col: str, events_csv_path: str = "ev
         "Lehman Collapse Shock": "LEH",
         "Bernanke Taper Shock": "TAPER",
         "China Shock": "CHINA",
+        "Brexit Shock": "BREX",
         "VIX Shock": "VIX",
+        "US-China Trade War Shock": "TRADE",
         "COVID Outbreak Shock": "COVID",
+        "Archegos Shock": "ARCH",
         "Ukraine Invasion Shock": "UKR",
+        "Silicon Valley Bank Shock": "SVB",
+        "Israel-Iran Shock": "ISR-IRN",
         "BOJ Rate Hike Shock": "BOJ",
         "Trump Tariff Shock": "TARIFF",
-        "Brexit Shock": "BREX",
+        "Iran War Shock": "IRAN",
+        "Korea Memory Shock": "MEM",
+
     }
     EVENT_RED = "#FF3B3B"
 
