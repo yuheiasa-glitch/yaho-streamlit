@@ -315,38 +315,120 @@ components.html(
 # ===== X Profile =====
 st.markdown(
     """
-    <a href="https://x.com/de2oy"
-       target="_blank"
-       style="
-           display:block;
-           width:100%;
-           box-sizing:border-box;
-           padding:14px 18px;
-           margin:2px 0 18px 0;
-           border:1px solid #333333;
-           border-radius:12px;
-           background:#111111;
-           color:#e5e5e5;
-           text-decoration:none;
-           font-size:14px;
-           font-weight:600;
-       ">
-        𝕏 &nbsp; @de2oy
-        <span style="
-            float:right;
-            color:#888888;
-            font-weight:400;
-        ">
-            View profile →
-        </span>
+    <style>
+    .x-profile-card {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        width:100%;
+        box-sizing:border-box;
+        padding:20px 22px;
+        margin:2px 0 20px 0;
+
+        background:#111111;
+        border:1px solid #2b2b2b;
+        border-radius:14px;
+
+        text-decoration:none !important;
+        transition:all 0.2s ease;
+    }
+
+    .x-profile-card:hover {
+        background:#161616;
+        border-color:#555555;
+        transform:translateY(-1px);
+    }
+
+    .x-left {
+        display:flex;
+        align-items:center;
+        gap:16px;
+    }
+
+    .x-logo {
+        width:46px;
+        height:46px;
+        border-radius:50%;
+        background:#000000;
+        border:1px solid #333333;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        font-size:21px;
+        font-weight:700;
+        color:#ffffff;
+    }
+
+    .x-name {
+        font-size:15px;
+        font-weight:700;
+        color:#ffffff;
+        margin-bottom:3px;
+    }
+
+    .x-handle {
+        font-size:12px;
+        color:#888888;
+        margin-bottom:7px;
+    }
+
+    .x-description {
+        font-size:12px;
+        color:#b0b0b0;
+        line-height:1.45;
+    }
+
+    .x-description span {
+        color:#FF8C00;
+    }
+
+    .x-arrow {
+        color:#888888;
+        font-size:13px;
+        white-space:nowrap;
+        padding-left:20px;
+    }
+    </style>
+
+    <a
+        class="x-profile-card"
+        href="https://x.com/de2oy"
+        target="_blank"
+    >
+
+        <div class="x-left">
+
+            <div class="x-logo">
+                𝕏
+            </div>
+
+            <div>
+                <div class="x-name">
+                    225NOW
+                </div>
+
+                <div class="x-handle">
+                    @de2oy
+                </div>
+
+                <div class="x-description">
+                    Markets, AI, inflation & real estate.<br>
+                    <span>Observations, models and forecasts.</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="x-arrow">
+            Follow on X&nbsp;&nbsp;→
+        </div>
+
     </a>
     """,
     unsafe_allow_html=True
 )
-
-
-
-
 
 
 # ===== Ticker Tape =====
