@@ -314,100 +314,64 @@ components.html(
 
 
 # ===== X Latest Post =====
-import requests
-import json
+X_HANDLE = "de2oy"  # @なし
 
-X_HANDLE = "de2oy"   # @は不要
+components.html(
+    f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        html, body {{
+            margin: 0;
+            padding: 0;
+            background: #000000;
+            overflow: hidden;
+        }}
 
+        .x-wrapper {{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }}
 
-@st.cache_data(ttl=300)
-def get_latest_tweet_id(handle: str):
-    url = f"https://syndication.twitter.com/srv/timeline-profile/screen-name/{handle}"
+        .x-inner {{
+            width: 100%;
+            max-width: 600px;
+        }}
+      </style>
+    </head>
 
-    r = requests.get(
-        url,
-        headers={
-            "User-Agent": "Mozilla/5.0"
-        },
-        timeout=10
-    )
-    r.raise_for_status()
+    <body>
 
-    marker = '<script id="__NEXT_DATA__" type="application/json">'
+      <div class="x-wrapper">
+        <div class="x-inner">
 
-    if marker not in r.text:
-        raise RuntimeError("X timeline data not found")
+          <a
+            class="twitter-timeline"
+            data-theme="dark"
+            data-tweet-limit="1"
+            data-chrome="noheader nofooter noborders noscrollbar transparent"
+            data-dnt="true"
+            href="https://x.com/{X_HANDLE}">
+            @{X_HANDLE}
+          </a>
 
-    json_text = (
-        r.text
-        .split(marker, 1)[1]
-        .split("</script>", 1)[0]
-    )
-
-    data = json.loads(json_text)
-    page_props = data["props"]["pageProps"]
-
-    # 最新投稿IDが直接入っていればそれを使う
-    latest_id = page_props.get("latest_tweet_id")
-
-    if latest_id:
-        return str(latest_id)
-
-    # fallback
-    entries = page_props.get("timeline", {}).get("entries", [])
-
-    for entry in entries:
-        tweet = entry.get("content", {}).get("tweet")
-
-        if tweet and tweet.get("id_str"):
-            return str(tweet["id_str"])
-
-    raise RuntimeError("Latest tweet not found")
-
-
-try:
-    latest_tweet_id = get_latest_tweet_id(X_HANDLE)
-
-    tweet_embed_url = (
-        "https://platform.twitter.com/embed/Tweet.html"
-        f"?id={latest_tweet_id}"
-        "&theme=dark"
-        "&dnt=true"
-        "&hideThread=true"
-    )
-
-    # 横長ページなので中央に配置
-    col1, col2, col3 = st.columns([1, 1.5, 1])
-
-    with col2:
-        components.iframe(
-            tweet_embed_url,
-            height=520,
-            scrolling=False
-        )
-
-except Exception as e:
-    st.markdown(
-        f"""
-        <div style="
-            border:1px solid #333;
-            border-radius:12px;
-            padding:20px;
-            color:#aaa;
-            margin:8px 0 18px 0;
-        ">
-            Latest post on X could not be loaded.
-            <br>
-            <a href="https://x.com/{X_HANDLE}"
-               target="_blank"
-               style="color:#FF8C00;">
-               View @{X_HANDLE} on X →
-            </a>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+      </div>
 
+      <script
+        async
+        src="https://platform.x.com/widgets.js"
+        charset="utf-8">
+      </script>
+
+    </body>
+    </html>
+    """,
+    height=330,
+    scrolling=False
+)
 
 
 # ===== Ticker Tape =====
