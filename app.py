@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit.components.v1 as components
+import requests
+import html
 
 st.set_page_config(layout="wide")
 
