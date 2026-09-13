@@ -315,38 +315,73 @@ components.html(
 
 # ===== X Latest Post =====
 
-X_HANDLE = "de2oy"  # @なし
+X_HANDLE = "de2oy"
+X_BEARER_TOKEN = st.secrets["X_BEARER_TOKEN"]
 
-st.html(
-    f"""
-    <div style="
-        width:100%;
-        display:flex;
-        justify-content:center;
-        margin:4px 0 18px 0;
-    ">
-        <div style="width:100%; max-width:600px;">
-            <a
-                class="twitter-timeline"
-                data-theme="dark"
-                data-tweet-limit="1"
-                data-chrome="noheader nofooter noborders noscrollbar transparent"
-                data-dnt="true"
-                href="https://x.com/{X_HANDLE}">
-                Posts by @{X_HANDLE}
-            </a>
-        </div>
-    </div>
 
-    <script
-        async
-        src="https://platform.x.com/widgets.js"
-        charset="utf-8">
-    </script>
-    """,
-    width="stretch",
-    unsafe_allow_javascript=True
-)
+@st.cache_data(ttl=86400)
+def get_x_user_id():
+    url = f"https://api.x.com/2/users/by/username/{X_HANDLE}"
+
+    r = requests.get(
+        url,
+        headers={
+            "Authorization": f"Bearer {X_BEARER_TOKEN}"
+        },
+        timeout=10
+    )
+
+    r.raise_for_status()
+
+    return r.json()["data"]["id"]
+
+
+@st.cache_data(ttl=300)
+def get_latest_x_post_id():
+    user_id = get_x_user_id()
+
+    url = f"https://api.x.com/2/users/{user_id}/tweets"
+
+    r = requests.get(
+        url,
+        headers={
+            "Authorization": f"Bearer {X_BEARER_TOKEN}"
+        },
+        params={
+            "max_results": 5,
+            "exclude": "replies,retweets"
+        },
+        timeout=10
+    )
+
+    r.raise_for_status()
+
+    posts = r.json()["data"]
+
+    return posts[0]["id"]
+
+
+try:
+    latest_post_id = get_latest_x_post_id()
+
+    col1, col2, col3 = st.columns([1, 1.3, 1])
+
+    with col2:
+        components.iframe(
+            f"https://platform.x.com/embed/Tweet.html"
+            f"?id={latest_post_id}"
+            f"&theme=dark"
+            f"&dnt=true"
+            f"&hideThread=true",
+            height=500,
+            scrolling=False
+        )
+
+except Exception as e:
+    st.caption(f"X post could not be loaded: {e}")
+
+
+
 
 # ===== Ticker Tape =====
 components.html("""
