@@ -315,7 +315,7 @@ components.html(
 
 # ===== X Latest Post =====
 
-X_HANDLE = "自分のXのID"  # @なし
+X_HANDLE = "de2oy"  # @なし
 
 st.html(
     f"""
