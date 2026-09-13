@@ -314,65 +314,39 @@ components.html(
 
 
 # ===== X Latest Post =====
-X_HANDLE = "de2oy"  # @なし
 
-components.html(
+X_HANDLE = "自分のXのID"  # @なし
+
+st.html(
     f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <style>
-        html, body {{
-            margin: 0;
-            padding: 0;
-            background: #000000;
-            overflow: hidden;
-        }}
-
-        .x-wrapper {{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }}
-
-        .x-inner {{
-            width: 100%;
-            max-width: 600px;
-        }}
-      </style>
-    </head>
-
-    <body>
-
-      <div class="x-wrapper">
-        <div class="x-inner">
-
-          <a
-            class="twitter-timeline"
-            data-theme="dark"
-            data-tweet-limit="1"
-            data-chrome="noheader nofooter noborders noscrollbar transparent"
-            data-dnt="true"
-            href="https://x.com/{X_HANDLE}">
-            @{X_HANDLE}
-          </a>
-
+    <div style="
+        width:100%;
+        display:flex;
+        justify-content:center;
+        margin:4px 0 18px 0;
+    ">
+        <div style="width:100%; max-width:600px;">
+            <a
+                class="twitter-timeline"
+                data-theme="dark"
+                data-tweet-limit="1"
+                data-chrome="noheader nofooter noborders noscrollbar transparent"
+                data-dnt="true"
+                href="https://x.com/{X_HANDLE}">
+                Posts by @{X_HANDLE}
+            </a>
         </div>
-      </div>
+    </div>
 
-      <script
+    <script
         async
         src="https://platform.x.com/widgets.js"
         charset="utf-8">
-      </script>
-
-    </body>
-    </html>
+    </script>
     """,
-    height=330,
-    scrolling=False
+    width="stretch",
+    unsafe_allow_javascript=True
 )
-
 
 # ===== Ticker Tape =====
 components.html("""
