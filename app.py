@@ -311,6 +311,47 @@ components.html(
     height=170
 )
 
+
+
+
+# ===== X Latest Post =====
+X_HANDLE = "de2oy"   # ← ここを自分のXアカウント名に変更
+
+components.html(
+    f"""
+    <div style="
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 4px;
+        margin-bottom: 12px;
+    ">
+      <div style="width:100%; max-width:600px;">
+        <a
+          class="twitter-timeline"
+          data-theme="dark"
+          data-chrome="noheader nofooter noborders noscrollbar transparent"
+          data-tweet-limit="1"
+          data-dnt="true"
+          href="https://x.com/{X_HANDLE}">
+          Posts by @{X_HANDLE}
+        </a>
+
+        <script
+          async
+          src="https://platform.twitter.com/widgets.js"
+          charset="utf-8">
+        </script>
+      </div>
+    </div>
+    """,
+    height=700,
+    scrolling=False,
+)
+
+
+
+
 # ===== Ticker Tape =====
 components.html("""
 <div class="tradingview-widget-container">
