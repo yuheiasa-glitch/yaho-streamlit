@@ -312,7 +312,77 @@ components.html(
 )
 
 
+# ===== X Latest Post =====
 
+@st.cache_data(ttl=300)
+def get_latest_x_post():
+    url = "https://api.fxtwitter.com/2/profile/de2oy/statuses"
+
+    r = requests.get(url, timeout=10)
+    r.raise_for_status()
+
+    data = r.json()
+    post = data["results"][0]
+
+    return {
+        "text": post["text"],
+        "url": post["url"],
+        "created_at": post.get("created_at", "")
+    }
+
+
+try:
+    post = get_latest_x_post()
+
+    post_text = html.escape(post["text"])
+    post_url = html.escape(post["url"])
+
+    st.markdown(
+        f"""
+        <a href="{post_url}"
+           target="_blank"
+           style="text-decoration:none;">
+
+          <div style="
+            background:#111111;
+            border:1px solid #2b2b2b;
+            border-radius:12px;
+            padding:18px 22px;
+            margin:2px 0 18px 0;
+          ">
+
+            <div style="
+              font-size:12px;
+              color:#888888;
+              margin-bottom:10px;
+            ">
+              𝕏 &nbsp; @de2oy
+            </div>
+
+            <div style="
+              font-size:15px;
+              line-height:1.65;
+              color:#eeeeee;
+            ">
+              {post_text}
+            </div>
+
+            <div style="
+              font-size:11px;
+              color:#777777;
+              margin-top:12px;
+            ">
+              View on X →
+            </div>
+
+          </div>
+        </a>
+        """,
+        unsafe_allow_html=True
+    )
+
+except Exception as e:
+    st.caption("Latest X post could not be loaded.")
 
 # ===== Ticker Tape =====
 components.html("""
