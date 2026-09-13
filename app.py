@@ -312,6 +312,38 @@ components.html(
 )
 
 
+# ===== X Profile =====
+st.markdown(
+    """
+    <a href="https://x.com/de2oy"
+       target="_blank"
+       style="
+           display:block;
+           width:100%;
+           box-sizing:border-box;
+           padding:14px 18px;
+           margin:2px 0 18px 0;
+           border:1px solid #333333;
+           border-radius:12px;
+           background:#111111;
+           color:#e5e5e5;
+           text-decoration:none;
+           font-size:14px;
+           font-weight:600;
+       ">
+        𝕏 &nbsp; @de2oy
+        <span style="
+            float:right;
+            color:#888888;
+            font-weight:400;
+        ">
+            View profile →
+        </span>
+    </a>
+    """,
+    unsafe_allow_html=True
+)
+
 
 
 
