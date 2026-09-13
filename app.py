@@ -382,7 +382,8 @@ try:
     )
 
 except Exception as e:
-    st.caption("Latest X post could not be loaded.")
+    st.error(f"X error: {e}")
+
 
 # ===== Ticker Tape =====
 components.html("""
