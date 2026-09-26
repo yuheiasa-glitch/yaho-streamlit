@@ -7,6 +7,12 @@ import html
 
 st.set_page_config(layout="wide")
 
+if not st.user.is_logged_in:
+    st.title("225NOW")
+    st.write("Googleアカウントでログインしてください。")
+    st.button("Googleでログイン", on_click=st.login)
+    st.stop()
+
 # ===== Shared Layout Constants =====
 CHART_HEIGHT = 520
 CHART_MARGIN = dict(l=40, r=60, t=10, b=40)
