@@ -511,6 +511,8 @@ fig_jp = add_crash_events(
 )
 
 st.plotly_chart(fig_jp, use_container_width=True)
+# Show the actual JP data date loaded by the running Streamlit server.
+st.caption(f"JP最新データ：{df_jp[date_col_jp].max():%Y/%m/%d}")
 
 # ===== US Chart =====
 st.markdown("<div style='height:18px'></div>", unsafe_allow_html=True)
