@@ -432,7 +432,7 @@ components.html("""
 # ===== CSV読み込み =====
 df_jp, date_col_jp = load_timeseries_csv("jp_data.csv")
 df_us, date_col_us = load_timeseries_csv("us_data.csv")
-df_hsdx, date_col_hsdx = load_timeseries_csv("hsdx_data.csv")
+df_xau, date_col_xau = load_timeseries_csv("xau_data.csv")
 
 # ===== JP列チェック =====
 jp_cols = ["①", "②", "③"]
@@ -448,11 +448,11 @@ if missing_us:
     st.error(f"us_data.csv に ④⑤ が足りない: {missing_us} / 列名: {df_us.columns.tolist()}")
     st.stop()
 
-# ===== HSDX列チェック =====
-hsdx_cols = ["⑥", "⑦"]
-missing_hsdx = [c for c in hsdx_cols if c not in df_hsdx.columns]
-if missing_hsdx:
-    st.error(f"hsdx_data.csv に ⑥⑦ が足りない: {missing_hsdx} / 列名: {df_hsdx.columns.tolist()}")
+# ===== XAU列チェック =====
+xau_cols = ["⑥", "⑦"]
+missing_xau = [c for c in xau_cols if c not in df_xau.columns]
+if missing_xau:
+    st.error(f"xau_data.csv に ⑥⑦ が足りない: {missing_xau} / 列名: {df_xau.columns.tolist()}")
     st.stop()
 
 # ===== 色 =====
@@ -476,11 +476,11 @@ us_widths = {
     "⑤": 1.0,
 }
 
-hsdx_colors = {
+xau_colors = {
     "⑥": "#F5A623",
     "⑦": "#6E8FEA",
 }
-hsdx_widths = {
+xau_widths = {
     "⑥": 1.0,
     "⑦": 1.0,
 }
@@ -544,12 +544,12 @@ st.plotly_chart(fig_us, use_container_width=True)
 # ===== XAU Chart =====
 st.markdown("<div style='height:18px'></div>", unsafe_allow_html=True)
 
-fig_hsdx = build_chart(
-    df=df_hsdx,
-    date_col=date_col_hsdx,
-    y_cols=hsdx_cols,
-    colors=hsdx_colors,
-    widths=hsdx_widths,
+fig_xau = build_chart(
+    df=df_xau,
+    date_col=date_col_xau,
+    y_cols=xau_cols,
+    colors=xau_colors,
+    widths=xau_widths,
     title_text="XAU",
     title_color="#F5A623",
     height=CHART_HEIGHT,
@@ -561,15 +561,15 @@ fig_hsdx = build_chart(
     clip_y_quantile=None,
 )
 
-fig_hsdx = add_crash_events(
-    fig_hsdx,
-    df_hsdx,
-    x_col=date_col_hsdx,
+fig_xau = add_crash_events(
+    fig_xau,
+    df_xau,
+    x_col=date_col_xau,
     y_col="⑥",
     events_csv_path="events.csv"
 )
 
-st.plotly_chart(fig_hsdx, use_container_width=True)
+st.plotly_chart(fig_xau, use_container_width=True)
 
 
 # ===== Assets (TradingView) =====
