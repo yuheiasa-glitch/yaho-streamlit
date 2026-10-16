@@ -189,6 +189,7 @@ def build_chart(
     show_range_selector: bool = True,
     show_range_slider: bool = True,
     clip_y_quantile: float | None = None,
+    extra_fill_cols: dict[str, str] | None = None,
 ):
     fig = go.Figure()
     numeric_series_list = []
@@ -197,24 +198,21 @@ def build_chart(
         series = pd.to_numeric(df[c], errors="coerce")
         numeric_series_list.append(series.dropna())
 
-        if fill_col is not None and c == fill_col:
-            fig.add_trace(go.Scatter(
-                x=df[date_col],
-                y=series,
-                mode="lines",
-                name=c,
-                line=dict(color=colors[c], width=widths[c]),
-                fill="tozeroy",
-                fillcolor=fill_color,
-            ))
-        else:
-            fig.add_trace(go.Scatter(
-                x=df[date_col],
-                y=series,
-                mode="lines",
-                name=c,
-                line=dict(color=colors[c], width=widths[c]),
-            ))
+        # Fill individual series lightly without changing the other charts.
+        series_fill = (
+            fill_color if fill_col is not None and c == fill_col
+            else (extra_fill_cols or {}).get(c)
+        )
+        trace_options = dict(
+            x=df[date_col],
+            y=series,
+            mode="lines",
+            name=c,
+            line=dict(color=colors[c], width=widths[c]),
+        )
+        if series_fill is not None:
+            trace_options.update(fill="tozeroy", fillcolor=series_fill)
+        fig.add_trace(go.Scatter(**trace_options))
 
     xaxis_config = dict(
         showgrid=False,
@@ -479,8 +477,8 @@ us_widths = {
 }
 
 hsdx_colors = {
-    "⑥": "#FF8C00",
-    "⑦": "#4A6FA5",
+    "⑥": "#F5A623",
+    "⑦": "#6E8FEA",
 }
 hsdx_widths = {
     "⑥": 1.0,
@@ -553,10 +551,11 @@ fig_hsdx = build_chart(
     colors=hsdx_colors,
     widths=hsdx_widths,
     title_text="XAU",
-    title_color="#FF8C00",
+    title_color="#F5A623",
     height=CHART_HEIGHT,
     fill_col="⑥",
-    fill_color="rgba(255,140,0,0.12)",
+    fill_color="rgba(245,166,35,0.12)",
+    extra_fill_cols={"⑦": "rgba(110,143,234,0.05)"},
     show_range_selector=True,
     show_range_slider=True,
     clip_y_quantile=None,
