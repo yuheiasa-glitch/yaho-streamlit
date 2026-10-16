@@ -479,11 +479,11 @@ us_widths = {
 }
 
 hsdx_colors = {
-    "⑥": "#4CAF50",
-    "⑦": "#FF3B3B",
+    "⑥": "#FF8C00",
+    "⑦": "#4A6FA5",
 }
 hsdx_widths = {
-    "⑥": 1.2,
+    "⑥": 1.0,
     "⑦": 1.0,
 }
 
@@ -543,7 +543,7 @@ fig_us = add_crash_events(
 
 st.plotly_chart(fig_us, use_container_width=True)
 
-# ===== HSDX Chart =====
+# ===== XAU Chart =====
 st.markdown("<div style='height:18px'></div>", unsafe_allow_html=True)
 
 fig_hsdx = build_chart(
@@ -552,14 +552,22 @@ fig_hsdx = build_chart(
     y_cols=hsdx_cols,
     colors=hsdx_colors,
     widths=hsdx_widths,
-    title_text="HSDX",
-    title_color="#FF3B3B",
+    title_text="XAU",
+    title_color="#FF8C00",
     height=CHART_HEIGHT,
     fill_col="⑥",
-    fill_color="rgba(76,175,80,0.12)",
+    fill_color="rgba(255,140,0,0.12)",
     show_range_selector=True,
     show_range_slider=True,
     clip_y_quantile=None,
+)
+
+fig_hsdx = add_crash_events(
+    fig_hsdx,
+    df_hsdx,
+    x_col=date_col_hsdx,
+    y_col="⑥",
+    events_csv_path="events.csv"
 )
 
 st.plotly_chart(fig_hsdx, use_container_width=True)
