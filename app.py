@@ -292,6 +292,23 @@ def build_chart(
         )
     )
 
+    # Future watch windows: background only, without labels or hover text.
+    # Put the overlap above the neutral window to create a subtle lavender tint.
+    fig.add_vrect(
+        x0="2026-12-17",
+        x1="2027-03-18",
+        fillcolor="rgba(235,240,250,0.10)",
+        line_width=0,
+        layer="below",
+    )
+    fig.add_vrect(
+        x0="2027-02-10",
+        x1="2027-03-04",
+        fillcolor="rgba(172,142,238,0.22)",
+        line_width=0,
+        layer="below",
+    )
+
     return fig
 
 
